@@ -19,4 +19,5 @@ const users: User[] = [
 ]
 
 export { users }
+
 export type { User }

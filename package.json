@@ -1,0 +1,39 @@
+{
+    "name": "taile-map-demo",
+    "type": "module",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc -b && vite build",
+        "preview": "vite preview",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "dependencies": {
+        "@arcgis/core": "^4.31.6",
+        "@arcgis/map-components": "^4.31.6",
+        "@iconify/vue": "^4.2.0",
+        "@vueuse/core": "^12.2.0",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "lucide-vue-next": "^0.468.0",
+        "radix-vue": "^1.9.11",
+        "tailwind-merge": "^2.5.5",
+        "tailwindcss-animate": "^1.0.7",
+        "vue": "^3.5.13",
+        "vue-router": "^4.5.0"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^3.12.0",
+        "@types/node": "^22.10.2",
+        "@vitejs/plugin-vue": "^5.2.1",
+        "autoprefixer": "^10.4.20",
+        "eslint": "^9.16.0",
+        "postcss": "^8.4.49",
+        "tailwindcss": "^3.4.16",
+        "typescript": "~5.7.2",
+        "vite": "^6.0.1",
+        "vue-tsc": "^2.1.10"
+    }
+}

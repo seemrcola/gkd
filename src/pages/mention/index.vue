@@ -116,28 +116,35 @@ function splitText() {
     let foundCursor = false
 
     for (const node of nodes) {
+        // 检查节点是否包含range光标
         if (node === range.startContainer || node.contains(range.startContainer)) {
-            // 如果是文本节点
+            // 处理文本节点
             if (node.nodeType === Node.TEXT_NODE) {
                 before += node.textContent?.slice(0, range.startOffset) || ''
                 after += node.textContent?.slice(range.startOffset) || ''
             }
-            // 如果是元素节点（span）
+            // 处理元素节点 比如 @mention span
             else if (node.nodeType === Node.ELEMENT_NODE) {
                 if (!foundCursor) {
+                    // 如过没有找到光标 则属于before
                     before += node.textContent
                 }
                 else {
+                    // 如果找到光标 则属于after
                     after += node.textContent
                 }
             }
+            // 找到光标的标记
             foundCursor = true
         }
         else {
+            // 处理非光标节点
             if (!foundCursor) {
+                // 如过没有找到光标 则属于before
                 before += node.textContent
             }
             else {
+                // 如果找到光标 则属于after
                 after += node.textContent
             }
         }

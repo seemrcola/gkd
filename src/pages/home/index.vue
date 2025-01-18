@@ -18,14 +18,21 @@ const projects: Project[] = [
         title: 'picture-in-picture',
         description: '画中画',
         path: '/pip',
-        tags: ['Vue3', 'TypeScript', 'Tailwind', 'picture-in-picture'],
+        tags: ['shadcn', 'Tailwind', 'picture-in-picture'],
     },
     {
         id: 2,
         title: 'mention',
         description: 'mention',
         path: '/mention',
-        tags: ['Vue3', 'TypeScript', 'Tailwind', 'mention'],
+        tags: ['shadcn', 'Tailwind', 'mention'],
+    },
+    {
+        id: 3,
+        title: 'face',
+        description: '人脸识别基础案例',
+        path: '/face',
+        tags: ['shadcn', 'Tailwind', 'face', 'face-api'],
     },
 ]
 </script>

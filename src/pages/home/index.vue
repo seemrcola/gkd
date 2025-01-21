@@ -16,23 +16,30 @@ const projects: Project[] = [
     {
         id: 1,
         title: 'picture-in-picture',
-        description: '画中画',
+        description: '画中画出基础案例',
         path: '/pip',
-        tags: ['shadcn', 'Tailwind', 'picture-in-picture'],
+        tags: ['picture-in-picture', 'documentPictureInPicture API'],
     },
     {
         id: 2,
         title: 'mention',
-        description: 'mention',
+        description: '一个基础的 提及 组件（尚不完善）',
         path: '/mention',
-        tags: ['shadcn', 'Tailwind', 'mention'],
+        tags: ['mention', '可编辑div', 'range'],
     },
     {
         id: 3,
         title: 'face',
         description: '人脸识别基础案例',
         path: '/face',
-        tags: ['shadcn', 'Tailwind', 'face', 'face-api'],
+        tags: ['face', 'face-api', 'canvas', 'svg'],
+    },
+    {
+        id: 4,
+        title: 'gif-player',
+        description: '一个基础的 gif 播放器 可控制暂停/播放/进度条',
+        path: '/gif',
+        tags: ['gif', 'canvas', 'imageDecoder'],
     },
 ]
 </script>

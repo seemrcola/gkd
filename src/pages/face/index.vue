@@ -70,8 +70,8 @@ async function onPlay() {
     const video = videoRef.value
     const canvas = canvasRef.value
     const svg = svgRef.value
-    // context
-    const context = canvas.getContext('2d') as CanvasRenderingContext2D
+    // 设置 willReadFrequently 属性
+    const context = canvas.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D
 
     // 设置 canvas 尺寸与视频一致
     canvas.width = video.videoWidth
@@ -88,24 +88,28 @@ async function onPlay() {
 
         // 从 Canvas 检测人脸
         const detections = await faceapi
-            .detectAllFaces(canvas, new faceapi.TinyFaceDetectorOptions())
+            .detectAllFaces(canvas, new faceapi.TinyFaceDetectorOptions({
+                // 优化检测参数
+                inputSize: 320, // 降低输入尺寸以提高性能
+                scoreThreshold: 0.5,
+            }))
             .withFaceLandmarks()
             .withFaceExpressions()
 
-        if (detections.length === 0) {
+        if (detections.length === 0)
             svg.innerHTML = ''
-        }
 
         // 绘制人脸检测框
         for (const detection of detections) {
             svg.innerHTML = ''
-            // 定位到人脸处
             const box = detection.detection.box
             const { x, y, width, height } = box
             drawRect(x, y, width, height)
         }
 
-        requestAnimationFrame(detectionLoop)
+        // 使用 requestAnimationFrame 进行下一帧检测
+        if (isStreaming.value)
+            requestAnimationFrame(detectionLoop)
     }
 
     // 开始检测循环

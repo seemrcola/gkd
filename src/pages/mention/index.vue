@@ -106,52 +106,68 @@ function splitText() {
         return
 
     const range = selection.getRangeAt(0)
-
-    // 获取所有文本内容，包括 span 元素
     let before = ''
     let after = ''
 
-    // 遍历所有子节点
-    const nodes = Array.from(editor.value.childNodes)
+    // 创建一个 TreeWalker 来遍历所有文本节点
+    const treeWalker = document.createTreeWalker(
+        editor.value,
+        NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+        null,
+    )
+
+    let currentNode = treeWalker.currentNode
     let foundCursor = false
 
-    for (const node of nodes) {
-        // 检查节点是否包含range光标
-        if (node === range.startContainer || node.contains(range.startContainer)) {
-            // 处理文本节点
-            if (node.nodeType === Node.TEXT_NODE) {
-                before += node.textContent?.slice(0, range.startOffset) || ''
-                after += node.textContent?.slice(range.startOffset) || ''
+    while (currentNode) {
+        // 如果是文本节点
+        if (currentNode.nodeType === Node.TEXT_NODE) {
+            // 如果当前节点是 range 的开始节点
+            if (currentNode === range.startContainer) {
+                // 获取 range 的开始节点之前的文本
+                before += currentNode.textContent?.slice(0, range.startOffset) || ''
+                // 获取 range 的开始节点之后的文本
+                after += currentNode.textContent?.slice(range.startOffset) || ''
+                // 设置 foundCursor 为 true
+                foundCursor = true
             }
-            // 处理元素节点 比如 @mention span
-            else if (node.nodeType === Node.ELEMENT_NODE) {
-                if (!foundCursor) {
-                    // 如过没有找到光标 则属于before
-                    before += node.textContent
-                }
-                else {
-                    // 如果找到光标 则属于after
-                    after += node.textContent
-                }
-            }
-            // 找到光标的标记
-            foundCursor = true
-        }
-        else {
-            // 处理非光标节点
-            if (!foundCursor) {
-                // 如过没有找到光标 则属于before
-                before += node.textContent
-            }
+            // 如果当前节点不是 range 的开始节点
             else {
-                // 如果找到光标 则属于after
-                after += node.textContent
+                // 如果 foundCursor 为 false，则将当前节点的文本添加到 before 中
+                if (!foundCursor)
+                    before += currentNode.textContent || ''
+                // 如果 foundCursor 为 true，则将当前节点的文本添加到 after 中
+                else
+                    after += currentNode.textContent || ''
             }
         }
+        // 如果是元素节点
+        else if (currentNode.nodeType === Node.ELEMENT_NODE) {
+            // 处理换行符
+            if (currentNode.nodeName === 'BR' || currentNode.nodeName === 'DIV') {
+                if (!foundCursor)
+                    before += '\n'
+                else
+                    after += '\n'
+            }
+            // 处理 @mention span
+            else if (currentNode.nodeName === 'SPAN' && currentNode.classList.contains('text-blue-500')) {
+                if (!foundCursor)
+                    before += currentNode.textContent || ''
+                else
+                    after += currentNode.textContent || ''
+            }
+        }
+
+        currentNode = treeWalker.nextNode()
     }
 
     beforeText.value = before
     afterText.value = after
+
+    // 移除调试日志
+    // console.log('Before:', before)
+    // console.log('After:', after)
 }
 
 // 处理提示列表显示
@@ -172,6 +188,9 @@ function handleMentionShow() {
     }
     // 更多情况todo....
     else {
+        // console.log(beforeText.value)
+        // console.log(afterText.value)
+        // console.log('不展示提示列表')
         mentionListVisible.value = false
     }
 }

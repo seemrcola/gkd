@@ -151,7 +151,7 @@ function splitText() {
                     after += '\n'
             }
             // 处理 @mention span
-            else if (currentNode.nodeName === 'SPAN' && (currentNode as HTMLElement).classList.contains('text-blue-500')) {
+            else if (currentNode.nodeName === 'SPAN' && (currentNode as HTMLElement).classList.contains('mention-span')) {
                 if (!foundCursor)
                     before += currentNode.textContent || ''
                 else
@@ -245,7 +245,7 @@ function createMentionSpan(name: string) {
     const mentionSpan = document.createElement('span')
     mentionSpan.textContent = `@${name}`
     mentionSpan.contentEditable = 'false'
-    mentionSpan.classList.add('text-blue-500', 'bg-gray-100/70', 'font-bold', 'rounded-md', 'px-1', 'py-0.5')
+    mentionSpan.classList.add('text-blue-500', 'bg-gray-100/70', 'font-bold', 'rounded-md', 'px-1', 'py-0.5', 'mention-span')
     return mentionSpan
 }
 

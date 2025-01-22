@@ -151,7 +151,7 @@ function splitText() {
                     after += '\n'
             }
             // 处理 @mention span
-            else if (currentNode.nodeName === 'SPAN' && currentNode.classList.contains('text-blue-500')) {
+            else if (currentNode.nodeName === 'SPAN' && (currentNode as HTMLElement).classList.contains('text-blue-500')) {
                 if (!foundCursor)
                     before += currentNode.textContent || ''
                 else
@@ -159,7 +159,7 @@ function splitText() {
             }
         }
 
-        currentNode = treeWalker.nextNode()
+        currentNode = treeWalker.nextNode() as Node
     }
 
     beforeText.value = before

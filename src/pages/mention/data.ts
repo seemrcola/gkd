@@ -6,16 +6,14 @@ interface User {
 
 // 模拟用户数据
 const users: User[] = [
-    { id: 1, name: 'Alice', avatar: '👩' },
-    { id: 2, name: 'Bob', avatar: '👨' },
-    { id: 3, name: 'Charlie', avatar: '👨‍🦰' },
-    { id: 4, name: 'David', avatar: '👨‍🦱' },
-    { id: 5, name: 'Eva', avatar: '👩‍🦰' },
-    { id: 6, name: 'Fiona', avatar: '👩‍🦰' },
-    { id: 7, name: 'Gina', avatar: '👩‍🦰' },
-    { id: 8, name: 'Hannah', avatar: '👩‍🦰' },
-    { id: 9, name: 'Ivy', avatar: '👩‍🦰' },
-    { id: 10, name: 'Julia', avatar: '👩‍🦰' },
+    { id: 1, name: '猪儿虫', avatar: '🐷' },
+    { id: 2, name: '熊猫哥', avatar: '🐼' },
+    { id: 3, name: '米斯特', avatar: '👨‍🦰' },
+    { id: 4, name: '科比哥', avatar: '👨‍🦱' },
+    { id: 5, name: '拖泥带水', avatar: '👩‍🦰' },
+    { id: 6, name: '熊猫嫂', avatar: '👩‍🦰' },
+    { id: 7, name: '卫生班长', avatar: '👩‍🦰' },
+    { id: 8, name: '纪律委员', avatar: '👩‍🦰' },
 ]
 
 export { users }

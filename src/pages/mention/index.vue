@@ -17,6 +17,9 @@ const afterText = ref('')
 // 添加下拉框位置状态
 const dropdownPosition = ref({ top: 0, left: 0 })
 
+// 添加一个变量保存最后的光标位置
+const lastRange = ref<Range | null>(null)
+
 // 计算匹配的用户列表
 const filteredUsers = computed(() => {
     if (!searchQuery.value)
@@ -88,6 +91,12 @@ function scrollSelectedIntoView() {
 
 // 处理输入事件
 function handleInput() {
+    // 保存当前光标位置
+    const selection = window.getSelection()
+    if (selection && selection.rangeCount > 0) {
+        lastRange.value = selection.getRangeAt(0).cloneRange()
+    }
+
     // 分割文本
     splitText()
     // 更新下拉框位置
@@ -198,6 +207,13 @@ function handleMentionShow() {
 function selectUser(user: User) {
     if (!editor.value)
         return
+
+    // 使用保存的光标位置
+    if (lastRange.value) {
+        const selection = window.getSelection()
+        selection?.removeAllRanges()
+        selection?.addRange(lastRange.value.cloneRange())
+    }
 
     // 拿到range
     const selection = window.getSelection()

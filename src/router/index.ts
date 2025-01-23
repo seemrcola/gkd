@@ -13,7 +13,15 @@ function setupRouter(app: App) {
         routes: [
             {
                 path: '/',
-                redirect: '/home',
+                redirect: '/playground/mention',
+            },
+            {
+                path: '/home',
+                component: () => import('@/pages/home/index.vue'),
+            },
+            {
+                path: '/playground/:demo',
+                component: () => import('@/pages/playground/index.vue'),
             },
             ...routesArray,
         ],

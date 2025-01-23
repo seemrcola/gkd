@@ -102,7 +102,7 @@ watchEffect(() => {
                 </template>
             </div>
         </div>
-        <div class="flex-1 overflow-auto">
+        <div class="flex-1 overflow-auto gutter">
             <CodeView
                 :key="`code-${props.demo}-${currentFile}`"
                 :code="code"
@@ -111,3 +111,9 @@ watchEffect(() => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.gutter {
+    scrollbar-gutter: stable;
+}
+</style>

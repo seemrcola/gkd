@@ -18,7 +18,7 @@ defineProps<{
         </div>
 
         <!-- 代码展示区域 -->
-        <div class="p-4 min-h-full font-mono text-sm leading-6">
+        <div class="min-h-full font-mono text-sm leading-6">
             <div class="rounded-lg bg-[#fafafa] dark:bg-[#0d1117] p-4 overflow-x-auto code-container border">
                 <pre class="w-[45vw]">
                     <code class="hljs language-typescript" v-html="code" />
